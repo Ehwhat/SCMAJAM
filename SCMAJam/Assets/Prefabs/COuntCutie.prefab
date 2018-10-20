@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4986524455498346}
-  - component: {fileID: 60934073319267350}
+  - component: {fileID: 58517957132243962}
   m_Layer: 8
   m_Name: NormalCollider
   m_TagString: Untagged
@@ -35,10 +35,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4363788212332776}
-  - component: {fileID: 114532161660284744}
   - component: {fileID: 50557294093779578}
   - component: {fileID: 114031188545222116}
   - component: {fileID: 95998776923079336}
+  - component: {fileID: 114897144726403166}
   m_Layer: 0
   m_Name: COuntCutie
   m_TagString: Untagged
@@ -114,7 +114,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572923935971380}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.69, y: -0.86, z: 0}
+  m_LocalPosition: {x: -2.53, y: 1.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4606965372448440}
@@ -175,7 +175,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 30
+  m_LinearDrag: 50
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -198,8 +198,8 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.09
---- !u!60 &60934073319267350
-PolygonCollider2D:
+--- !u!58 &58517957132243962
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -210,24 +210,9 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.16327621, y: 0.7035598}
-      - {x: -0.023980528, y: 0.7601925}
-      - {x: -0.18367258, y: 0.708696}
-      - {x: -0.1756795, y: 0.48487574}
-      - {x: -0.13215098, y: -0.01765269}
-      - {x: 0.14813748, y: -0.009658992}
+  m_Offset: {x: 0, y: 0.25}
+  serializedVersion: 2
+  m_Radius: 0.38
 --- !u!95 &95998776923079336
 Animator:
   serializedVersion: 3
@@ -258,9 +243,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stunned: 0
   data: {fileID: 11400000, guid: e0b8c8d126150664ea31792857b9ff0c, type: 2}
-  movement: {fileID: 114532161660284744}
+  movement: {fileID: 0}
   animator: {fileID: 95998776923079336}
---- !u!114 &114532161660284744
+--- !u!114 &114897144726403166
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -268,11 +253,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1572923935971380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fc5e406448a0d44c8268037addbba79, type: 3}
+  m_Script: {fileID: 11500000, guid: e4e0cc8212144cc46983cab7d09fb5cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 60
-  rigidbody2D: {fileID: 50557294093779578}
+  player: 0
+  ownCollider: {fileID: 58450607745892898}
+  bigCollider: {fileID: 58517957132243962}
+  whereToAutoMove: {x: 0, y: 0}
+  charAnimator: {fileID: 95998776923079336}
 --- !u!210 &210256518041110948
 SortingGroup:
   m_ObjectHideFlags: 1
@@ -282,7 +270,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
 --- !u!212 &212566842256532292
 SpriteRenderer:
   m_ObjectHideFlags: 1

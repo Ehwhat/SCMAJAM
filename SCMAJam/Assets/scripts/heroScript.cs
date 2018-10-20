@@ -5,9 +5,11 @@ using XInputDotNetPure;
 
 public class heroScript : MonoBehaviour {
 
+  
     public PlayerIndex player;
     Rigidbody2D rb;
 
+    float stunDuration = 1;
     float speed = 3f;
     float speedModifier; //how much faster or slower the hero moves when under the effects of a buff/debuff
 
@@ -18,9 +20,9 @@ public class heroScript : MonoBehaviour {
     string pickedBuff;
     string currentItem = "none";
 
-    private CircleCollider2D ownCollider;
-    private SpriteRenderer spriteRend;
-
+    public CircleCollider2D ownCollider;
+    public CircleCollider2D bigCollider;
+    
     bool canAct = true;
     bool canDash = true;
     public Vector2 whereToAutoMove;
@@ -33,13 +35,13 @@ public class heroScript : MonoBehaviour {
     float dashPower;
     float dashPowerModif = 0.5f; //ratio of how weaker or stronger the dash should be.
 
+    public Animator charAnimator;
+
 	// Use this for initialization
 	void Start () {
         lastState = GamePad.GetState(player);
 
         rb = GetComponent<Rigidbody2D>();
-        ownCollider = GetComponent<CircleCollider2D>();
-        spriteRend = GetComponent<SpriteRenderer>();
 
         speedModifier = speed / 2; //set the modifier in relation to the speed
 
@@ -64,6 +66,15 @@ public class heroScript : MonoBehaviour {
         if (canAct)
         {
             rb.AddForce(input * speed, ForceMode2D.Impulse);
+            charAnimator.SetBool("IsRunning", input.sqrMagnitude > 0);
+            if(input.x > 0f)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
         }
     
         if (aPressed && canAct)
@@ -108,6 +119,7 @@ public class heroScript : MonoBehaviour {
         {
 
             StartCoroutine(dashTransition(input));
+            Debug.Log("gets past input if");
         }
 
 
@@ -126,26 +138,39 @@ public class heroScript : MonoBehaviour {
     {
         float currentTime = 0.0f;
         canDash = false;
+        charAnimator.SetBool("IsDash", true);
+        Vector2 oldPosition = transform.position;
         while (currentTime < 0.2f)
         {
             ownCollider.enabled = false;
-            RaycastHit2D[] hits = new RaycastHit2D[1];
+            bigCollider.enabled = false;
+            RaycastHit2D[] hits = new RaycastHit2D[100];
 
             ContactFilter2D filter = new ContactFilter2D();
             filter.useTriggers = false;
 
+            
             int count = Physics2D.CircleCast(transform.position, 0.5f, direction, filter, hits, dashPower * Time.deltaTime);
+            float distanceDashed = Vector2.Distance(oldPosition, transform.position);
             ownCollider.enabled = true;
+            bigCollider.enabled = true;
+            Debug.Log("hit something!");
+            //Debug.Log(distanceDashed);
             if (count > 0)
             {
-                Debug.Log("hit something!");
-                heroScript other = hits[0].collider.gameObject.GetComponent<heroScript>();
-                if(other != null)
+                for (int i = 0; i < 100; i++)
                 {
-                    other.StartCoroutine(other.wasBumped(currentTime,direction));
+                    
+                    heroScript other = hits[0].collider.transform.parent.GetComponentInParent<heroScript>();
+                    if (other != null)
+                    {
+                        other.StartCoroutine(other.wasBumped(stunDuration, direction * distanceDashed));
+                    }
+                    
                 }
                 StartCoroutine(DashCooldown());
                 yield break; //returns
+
             }
             rb.AddForce(direction * dashPower, ForceMode2D.Impulse);
             currentTime += Time.deltaTime;
@@ -154,25 +179,30 @@ public class heroScript : MonoBehaviour {
         StartCoroutine(DashCooldown());
     }
 
-    public IEnumerator wasBumped (float time ,Vector2 direction)
+    public void bump (float time, Vector2 direction)
     {
+        StartCoroutine(wasBumped(time, direction));
+    }
 
-        float currentTime = 0.0f;
-        while(currentTime < time)
-        {
-            rb.AddForce(direction * speed * 5, ForceMode2D.Impulse);
-            currentTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
-        Debug.Log("got bumped");
+    public IEnumerator wasBumped (float time , Vector2 direction)
+    {
         if (canAct)
         {
+            charAnimator.SetBool("IsStunned", true);
             canAct = false;
-            spriteRend.color = Color.black;
-            yield return new WaitForSeconds(1);
-            spriteRend.color = new Color(34, 173, 201, 255)/255;
+            float currentTime = 0.0f;
+            while (currentTime < 0.2f)
+            {
+                rb.AddForce(direction * dashPower, ForceMode2D.Impulse);
+                currentTime += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            Debug.Log("got bumped");
+            yield return new WaitForSeconds(time);
             canAct = true;
+            charAnimator.SetBool("IsStunned", false);
         }
+
     }
 
     public IEnumerator Automove(Vector2 targetPos, float moveTime)
@@ -205,6 +235,7 @@ public class heroScript : MonoBehaviour {
 
     IEnumerator DashCooldown()
     {
+        charAnimator.SetBool("IsDash", false);
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
 

@@ -15,7 +15,7 @@ TagManager:
   - UI
   - 
   - 
-  - Attack
+  - dash
   - 
   - 
   - 
@@ -42,15 +42,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-<<<<<<< HEAD
-  - name: Layer
-    uniqueID: 385325321
-=======
-  - name: chests
-    uniqueID: 932820849
-    locked: 0
-  - name: heroes
-    uniqueID: 2222997825
->>>>>>> master
     locked: 0
