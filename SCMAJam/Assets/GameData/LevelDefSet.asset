@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e6942ad8c60b624fbeb7d4511529b4c, type: 3}
+  m_Name: LevelDefSet
+  m_EditorClassIdentifier: 
+  mapDefintions:
+  - {fileID: 11400000, guid: 3431807a5c47eb841a22c8d4d276cb0a, type: 2}
+  - {fileID: 11400000, guid: c45e1f5602c06d243b4a881af95fa642, type: 2}
+  - {fileID: 11400000, guid: c45e1f5602c06d243b4a881af95fa642, type: 2}
+  - {fileID: 11400000, guid: c45e1f5602c06d243b4a881af95fa642, type: 2}
+  - {fileID: 11400000, guid: c45e1f5602c06d243b4a881af95fa642, type: 2}

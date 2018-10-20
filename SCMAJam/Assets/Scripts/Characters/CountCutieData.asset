@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67bb17acdc883ef4f814738e2da3993b, type: 3}
+  m_Name: CountCutieData
+  m_EditorClassIdentifier: 
+  characterName: 
+  characterDescription: 
+  characterPrefab: {fileID: 114031188545222116, guid: a2c172397cd38df408985b23c7d84183,
+    type: 2}

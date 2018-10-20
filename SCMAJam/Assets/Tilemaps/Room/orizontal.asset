@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d5751a2c961df945a34295ccf5e576d, type: 3}
+  m_Name: orizontal
+  m_EditorClassIdentifier: 
+  m_Prefabs:
+  - {fileID: 1623386610709872, guid: 0f4720e9c2d02854fb55b4b7d6213eff, type: 2}
+  - {fileID: 1866420762955930, guid: a847f5a76d3d5f0458abaf85b75572bd, type: 2}
+  - {fileID: 1875685928717764, guid: 4288bb872c9e41341b9278dce1d62a5e, type: 2}
+  - {fileID: 1533748420549444, guid: f33ad56a7138dee408148c6b4e52d041, type: 2}
+  - {fileID: 1333473121582088, guid: baee213bb4503d747823177673fcc9a2, type: 2}
+  - {fileID: 1682830873049176, guid: 70d5b53854161da4184c70f7e454294f, type: 2}
+  - {fileID: 1777705444479920, guid: 43ccffda24554ee458837f8065ab1744, type: 2}
+  index: 6
