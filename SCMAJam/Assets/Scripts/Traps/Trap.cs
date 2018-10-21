@@ -17,5 +17,7 @@ public abstract class Trap : MonoBehaviour {
     }
 
     protected abstract void OnTrapHit(CharacterManager character);
+    public virtual void OnMapStart() { }
+    public virtual void OnMapEnd() { }
 
 }

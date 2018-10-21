@@ -27,11 +27,6 @@ public class DSPixelPerfectCamera : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        SetOrthographicSize();
-    }
-
     void SetOrthographicSize()
 	{
 		ValidateUserInput();

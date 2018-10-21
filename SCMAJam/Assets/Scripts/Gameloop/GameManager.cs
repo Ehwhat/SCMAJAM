@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 
     public Vector2[] spawnPoints = new Vector2[4];
     public CharacterManager[] characterManagers;
+    public UIPopupManager popupManager;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < characterData.Length; i++)
         {
             characterManagers[i] = Instantiate(characterData[i].characterPrefab, spawnPoints[i], Quaternion.identity);
+            characterManagers[i].popupManager = popupManager;
         }
     }
 

@@ -50,6 +50,11 @@ public class MapChangingManager : MonoBehaviour {
         {
             return;
         }
+        Trap[] traps = GameObject.FindObjectsOfType<Trap>();
+        for (int i = 0; i < traps.Length; i++)
+        {
+            traps[i].OnMapStart();
+        }
         if (currentMap)
         {
             Destroy(currentMap.gameObject);
@@ -60,6 +65,12 @@ public class MapChangingManager : MonoBehaviour {
         nextToBeLoaded = null;
 
         PopulateDoors();
+        traps = GameObject.FindObjectsOfType<Trap>();
+        for (int i = 0; i < traps.Length; i++)
+        {
+            traps[i].OnMapStart(); 
+        }
+
     }
 
     public void PopulateDoors()

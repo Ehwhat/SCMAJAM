@@ -20,8 +20,11 @@ public class heroScript : MonoBehaviour {
     string pickedBuff;
     string currentItem = "none";
 
+    public ParticleSystem dashParticles;
     public CircleCollider2D ownCollider;
     public CircleCollider2D bigCollider;
+    public float hitRadius = 0.38f;
+    public Vector2 hitOffset = new Vector2(0, 0.19f);
     
     bool canAct = true;
     bool canDash = true;
@@ -139,6 +142,8 @@ public class heroScript : MonoBehaviour {
         float currentTime = 0.0f;
         canDash = false;
         charAnimator.SetBool("IsDash", true);
+        dashParticles.Play();
+        dashParticles.transform.localScale = transform.localScale;
         Vector2 oldPosition = transform.position;
         while (currentTime < 0.2f)
         {
@@ -150,7 +155,7 @@ public class heroScript : MonoBehaviour {
             filter.useTriggers = false;
 
             
-            int count = Physics2D.CircleCast(transform.position, 0.5f, direction, filter, hits, dashPower * Time.deltaTime);
+            int count = Physics2D.CircleCast(transform.position + (Vector3)hitOffset, hitRadius, direction, filter, hits, hitRadius + dashPower * Time.deltaTime);
             float distanceDashed = Vector2.Distance(oldPosition, transform.position);
             ownCollider.enabled = true;
             bigCollider.enabled = true;
@@ -236,6 +241,7 @@ public class heroScript : MonoBehaviour {
     IEnumerator DashCooldown()
     {
         charAnimator.SetBool("IsDash", false);
+        dashParticles.Stop();
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
 

@@ -9,6 +9,7 @@ public class CharacterManager : MonoBehaviour {
     public CharacterData data;
     public TestCharacterMovement movement;
     public Animator animator;
+    public UIPopupManager popupManager;
 
     public void Update()
     {
@@ -29,6 +30,11 @@ public class CharacterManager : MonoBehaviour {
         stunned = false;
         movement.enabled = true;
         animator.SetBool("IsStunned", false);
+    }
+
+    public void AdjustPoints(float amount)
+    {
+        data.points += amount;
     }
 
 
